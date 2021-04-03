@@ -71,7 +71,13 @@ export default function Header() {
             </Button>
             <p className="text-center opacity-50 mt-2">
               Don't have an account ? Klik
-              <Link className="text-decoration-none font-weight-bold pl-1 text-warning">
+              <Link
+                className="text-decoration-none font-weight-bold pl-1 text-warning"
+                onClick={() => {
+                  setRegister(!register);
+                  setLogin(!login);
+                }}
+              >
                 Here
               </Link>
             </p>
@@ -114,7 +120,13 @@ export default function Header() {
             </Button>
             <p className="text-center opacity-50 mt-2">
               Already have an account ? Klik
-              <Link className="text-decoration-none font-weight-bold pl-1 text-warning">
+              <Link
+                className="text-decoration-none font-weight-bold pl-1 text-warning"
+                onClick={() => {
+                  setRegister(!register);
+                  setLogin(!login);
+                }}
+              >
                 Here
               </Link>
             </p>
