@@ -1,0 +1,51 @@
+:root {
+  --yellow: #ff9f00;
+  --grey: #ececec;
+}
+
+/* font */
+@import url("http://fonts.cdnfonts.com/css/avenir-lt-std");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Avenir LT Std", sans-serif;
+}
+
+/* reuse */
+.btn-transparent {
+  background-color: transparent;
+}
+
+.home-page {
+  background: var(--yellow);
+  min-height: 100vh;
+  padding-top: 132px;
+}
+
+.title-home {
+  font-size: 72px;
+}
+
+.img-home {
+  min-width: 100%;
+  width: 100%;
+}
+
+.list {
+  padding: 0 2em;
+  background: #ffffff;
+  height: 100vh;
+}
+.list ul {
+  list-style: none;
+  padding: 0 2em;
+}
+.title-menu {
+  padding: 1em;
+}
+
+.list-menu {
+  padding: 2em 0;
+}
