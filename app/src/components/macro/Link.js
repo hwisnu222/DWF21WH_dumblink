@@ -62,8 +62,16 @@ export default function Link() {
                 md={4}
                 className="d-flex justify-content-center align-items-center"
               >
-                <img src={View} alt="view" className="mr-4 icon-edit-link" />
-                <img src={Edit} alt="edit" className="mr-4 icon-edit-link" />
+                <img
+                  src={View}
+                  alt="view"
+                  className="mr-4 icon-edit-link pe-auto"
+                />
+                <img
+                  src={Edit}
+                  alt="edit"
+                  className="mr-4 icon-edit-link pe-auto"
+                />
                 <img
                   src={Delete}
                   alt="delete"

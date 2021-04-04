@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Template from "./pages/Template";
 import MyAccount from "./pages/MyAccount";
 import MyLink from "./pages/MyLink";
+import Preview from "./pages/PreviewLink";
 import NotFound from "./pages/404";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/template" component={Template} />
         <Route exact path="/account" component={MyAccount} />
         <Route exact path="/link" component={MyLink} />
+        <Route exact path="/preview/:id" component={Preview} />
         <Route exact component={NotFound} />
       </Switch>
     </BrowserRouter>

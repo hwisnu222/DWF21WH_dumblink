@@ -55,6 +55,7 @@
 
 .list ul li {
   font-size: 20px;
+  cursor: pointer;
 }
 
 .list ul li:hover {
@@ -81,4 +82,25 @@
 .icon-edit-link:hover {
   background-color: var(--yellow);
   border-radius: 10px;
+  cursor: pointer;
+}
+
+.list-preview {
+  transition: transform ease 1s;
+}
+
+.list-preview:hover {
+  transform: scale(1.1);
+}
+
+.image-preview {
+  min-width: 130px;
+  width: 130px;
+  min-height: 130px;
+  height: 130px;
+  object-fit: cover;
+}
+
+.img-social-preview {
+  width: 50px;
 }
