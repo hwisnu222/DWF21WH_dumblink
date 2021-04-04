@@ -6,6 +6,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import Template from "./pages/Template";
+import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/404";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/template" component={Template} />
+        <Route exact path="/account" component={MyAccount} />
         <Route exact component={NotFound} />
       </Switch>
     </BrowserRouter>
