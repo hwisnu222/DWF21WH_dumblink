@@ -77,3 +77,8 @@
   font-size: 20px;
   padding: 0 4em;
 }
+
+.icon-edit-link:hover {
+  background-color: var(--yellow);
+  border-radius: 10px;
+}
