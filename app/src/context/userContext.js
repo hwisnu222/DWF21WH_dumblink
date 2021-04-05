@@ -6,6 +6,7 @@ export const UserContext = createContext();
 // initial state global
 const initialstate = {
   isLogin: false,
+  id: null,
 };
 
 // reducer function

@@ -13,14 +13,26 @@
   font-family: "Avenir LT Std", sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* reuse */
 .btn-transparent {
   background-color: transparent;
 }
 
+.bg-grey {
+  background-color: var(--grey);
+}
+
+button {
+  border-radius: 10px;
+}
+
 .page {
-  min-height: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--grey);
 }
 
@@ -94,13 +106,38 @@
 }
 
 .image-preview {
-  min-width: 130px;
-  width: 130px;
-  min-height: 130px;
-  height: 130px;
+  min-width: 5em;
+  width: 5em;
+  min-height: 5em;
+  height: 5em;
   object-fit: cover;
 }
 
 .img-social-preview {
-  width: 50px;
+  min-width: 3.125em;
+  width: 3.125em;
+}
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 125%;
+  position: relative;
+  height: 100%;
+}
+
+.iframe-container iframe {
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+iframe {
+  overflow: hidden;
+}
+
+.title-list-link {
+  font-size: 14px;
 }
