@@ -9,10 +9,10 @@ export default function Template() {
   return (
     <div className="container-fluid p-0">
       <Row noGutters={true}>
-        <Col md={3}>
+        <Col md={3} xs={3}>
           <SideBar />
         </Col>
-        <Col md={9}>
+        <Col md={9} xs={9}>
           <TemplateUser />
         </Col>
       </Row>

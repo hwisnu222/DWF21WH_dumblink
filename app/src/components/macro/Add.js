@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
+import { useParams } from "react-router-dom";
 import { API_BASE } from "../../config/api";
 
 import { Navbar, Row, Col, Button, Card, Form } from "react-bootstrap";
@@ -8,7 +8,10 @@ import { Navbar, Row, Col, Button, Card, Form } from "react-bootstrap";
 import NoImage from "../../assets/icon/noimage.svg";
 
 export default function Add() {
-  const router = useHistory();
+  const { idTemplate } = useParams();
+  // state
+  const [preview, setPreview] = useState({ isPreview: false, id: null });
+  const [arrayLinks, setArrayLinks] = useState([]);
 
   const [Link, setLink] = useState({
     title: "",
@@ -23,13 +26,15 @@ export default function Add() {
 
   const { title, description, imageFile } = Link;
 
+  // add link user
   const addLink = useMutation(async () => {
     const body = new FormData();
 
     body.append("title", title);
     body.append("description", description);
+    body.append("template", idTemplate);
     body.append("imageFile", imageFile);
-    body.append("link", Links);
+    body.append("link", JSON.stringify(arrayLinks));
 
     const config = {
       headers: {
@@ -39,11 +44,32 @@ export default function Add() {
 
     const add = await API_BASE.post("/add-link", body, config);
 
-    // const { status } = add.data;
-    // if (status == "success") {
-    //   router.push("/link");
-    // }
+    const { status } = add.data;
+    if (status == "success") {
+      const { id } = add?.data?.data?.link?.addLink;
+      // router.push("/link");
+      setPreview({ isPreview: true, id: id });
+      clearState();
+    }
   });
+
+  // cleare state
+  const clearState = () => {
+    setLinks({
+      title: "",
+      url: "",
+    });
+
+    setLink({
+      title: "",
+      description: "",
+      imageFile: null,
+    });
+
+    setArrayLinks([]);
+
+    setImage(null);
+  };
 
   const onChangeLink = (e) => {
     const tempForm = { ...Link };
@@ -67,6 +93,11 @@ export default function Add() {
   const handleAddLink = (e) => {
     addLink.mutate();
     e.preventDefault();
+  };
+
+  const addLinks = () => {
+    setArrayLinks([...arrayLinks, Links]);
+    console.log("array", arrayLinks);
   };
 
   return (
@@ -136,7 +167,23 @@ export default function Add() {
                     />
                   </Form.Group>
 
-                  <div>
+                  <div className="mt-4">
+                    {arrayLinks.map((item) => (
+                      <div className="mb-2 p-2 border border-2 border-dark rounded">
+                        <Form.Group>
+                          <span className="text-muted title-list-link">
+                            Title Link
+                          </span>
+                          <p>{item.title}</p>
+                        </Form.Group>
+                        <Form.Group>
+                          <span className="text-muted title-list-link">
+                            Link
+                          </span>
+                          <p>{item.url}</p>
+                        </Form.Group>
+                      </div>
+                    ))}
                     <div className="d-flex align-items-start bg-grey p-3">
                       <img src={NoImage} alt="image" />
                       <div className="ml-4">
@@ -168,6 +215,13 @@ export default function Add() {
                             className="bg-transparent border-top-0 border-right-0 border-left-0 border-bottom-2 input-line"
                           />
                         </Form.Group>
+                        <Button
+                          variant="warning"
+                          className="font-weight-bold"
+                          onClick={addLinks}
+                        >
+                          Add
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -190,11 +244,13 @@ export default function Add() {
                       <div className="homeButton"></div>
                       <div className="content">
                         <div class="iframe-container">
-                          {/* <iframe
-                            loading="lazy"
-                            src="http://www.localhost:3000/preview/12"
-                            scrolling="no"
-                          ></iframe> */}
+                          {preview.isPreview && (
+                            <iframe
+                              loading="lazy"
+                              src={`http://www.localhost:3000/preview/${preview.id}`}
+                              scrolling="no"
+                            ></iframe>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -16,15 +16,19 @@ export default function TemplateUser() {
       <div className="pt-4 w-100">
         <Row className="mr-0">
           <Col md={3}>
-            <Link to="/add">
+            <Link to="/add/A1">
               <img src={Template1} alt="template" />
             </Link>
           </Col>
           <Col md={3}>
-            <img src={Template2} alt="template" />
+            <Link to="/add/B1">
+              <img src={Template2} alt="template" />
+            </Link>
           </Col>
           <Col md={3}>
-            <img src={Template3} alt="template" />
+            <Link to="/add/C1">
+              <img src={Template3} alt="template" />
+            </Link>
           </Col>
         </Row>
       </div>

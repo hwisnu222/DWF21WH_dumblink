@@ -11,6 +11,7 @@ import Delete from "../../assets/icon/delete.svg";
 import ListLink from "../../assets/icon/listLink.svg";
 
 export default function LinkUser() {
+  // state
   const [confirmDelete, setConfirmDelete] = useState({
     isDelete: false,
     id: "",
@@ -22,6 +23,7 @@ export default function LinkUser() {
     description: "",
   });
 
+  // request data
   const { data, loading, error, refetch } = useQuery("getLink", async () => {
     const response = await API_BASE.get(`link`);
     return response;
@@ -36,7 +38,6 @@ export default function LinkUser() {
 
     await API_BASE.delete(`/delete-link/${id}`, config);
     await refetch();
-    setLinkToList();
   });
 
   const updateLink = useMutation(async (id) => {
@@ -48,20 +49,25 @@ export default function LinkUser() {
 
     const body = JSON.stringify(formEdit);
 
-    console.log("update", id);
-
-    await API_BASE.put(`/update-link/${id}`, body, config);
+    const update = await API_BASE.put(`/update-link/${id}`, body, config);
     await refetch();
-    setLinkToList();
+
+    const { status } = update?.data;
+
+    if (status == "success") {
+      setLinkToList();
+    }
   });
 
-  const setLinkToList = async () => {
+  // function
+  const setLinkToList = () => {
     setLinks(data?.data?.data?.link);
   };
 
   const handleDeleteLink = () => {
     deleteLink.mutate(confirmDelete.id);
     setConfirmDelete({ ...confirmDelete, isDelete: !confirmDelete.isDelete });
+    setLinkToList();
   };
 
   const handleUpdateLink = (id) => {
@@ -77,6 +83,8 @@ export default function LinkUser() {
 
   useEffect(() => {
     setLinkToList();
+    setEdit(null);
+    console.log("hello");
   }, []);
 
   return (

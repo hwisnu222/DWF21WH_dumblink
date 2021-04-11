@@ -6,7 +6,7 @@ const shortid = require("shortid");
 const response = require("../response");
 
 exports.addLink = async (req, res) => {
-  const { title, description, link } = req.body;
+  const { title, description, template, link } = req.body;
   const userId = req.userId;
   const imageName = req.files.imageFile[0].filename;
 
@@ -20,7 +20,7 @@ exports.addLink = async (req, res) => {
       image: imageName,
       uniqueLink,
       viewCount: 0,
-      template: "A1",
+      template,
       userId: userId,
     });
 
@@ -29,34 +29,34 @@ exports.addLink = async (req, res) => {
     }
 
     const linkId = addLink.id;
-    const linkString = JSON.stringify(link);
-    const linkParse = JSON.parse(linkString);
+    // const linkString = JSON.stringify(link);
+    const linkParse = JSON.parse(link);
+
     console.log(typeof linkParse);
 
+    console.log(link);
+
+    let bulkLinks = [];
+
+    for (let i; i <= linkParse.length; i++) {
+      bulkLinks.push({
+        title: linkParse[i].title,
+        url: linkParse[i].url,
+        linkId: linkId,
+      });
+    }
+
+    linkParse.map((item) => {
+      bulkLinks.push({ title: item.title, url: item.url, linkId: linkId });
+    });
+
+    console.log(bulkLinks);
+
     try {
-      await UserLink.create(linkParse);
+      await UserLink.bulkCreate(bulkLinks);
     } catch (error) {
       console.log(error);
     }
-
-    // const array = [
-    //   { title: "hellooo", url: "www", linkId: linkId },
-    //   { title: "hello2", url: "www2", linkId: linkId },
-    // ];
-
-    // try {
-    //   const add = await UserLink.bulkCreate(array);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // link.map(async (item) => {
-    //   await UserLink.create({
-    //     title: item.title,
-    //     url: item.url,
-    //     linkId,
-    //   });
-    // });
 
     const result = {
       link: { addLink },
@@ -72,7 +72,10 @@ exports.getLink = async (req, res) => {
   const userId = req.userId;
 
   try {
-    const getLink = await Link.findAll({ where: { userId } });
+    const getLink = await Link.findAll({
+      where: { userId },
+      order: [["id", "DESC"]],
+    });
 
     const result = {
       link: getLink,
@@ -96,7 +99,7 @@ exports.getLinkDetail = async (req, res) => {
         attributes: ["title", "url", "image"],
       },
       where: { id },
-      attributes: ["title", "description", "image"],
+      attributes: ["title", "description", "template", "image"],
     });
 
     const result = {

@@ -57,7 +57,7 @@ function App() {
           <PrivateRoute exact path="/template" component={Template} />
           <PrivateRoute exact path="/account" component={MyAccount} />
           <PrivateRoute exact path="/link" component={MyLink} />
-          <PrivateRoute exact path="/add" component={AddLink} />
+          <PrivateRoute exact path="/add/:idTemplate" component={AddLink} />
           <Route exact path="/preview/:id" component={Preview} />
           <Route exact component={NotFound} />
         </Switch>
