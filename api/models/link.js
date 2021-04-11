@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Link.belongsTo(models.User);
       Link.hasMany(models.UserLink, {
-        as: "Links",
+        as: "links",
         foreignKey: "linkId",
       });
     }
@@ -20,9 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       description: DataTypes.STRING,
+      image: DataTypes.STRING,
       uniqueLink: DataTypes.STRING,
       viewCount: DataTypes.INTEGER,
       template: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,

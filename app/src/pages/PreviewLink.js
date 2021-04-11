@@ -1,4 +1,7 @@
 import React from "react";
+import { useQuery } from "react-query";
+import { useParams, Link } from "react-router-dom";
+import { API_BASE } from "../config/api";
 
 import { Container } from "react-bootstrap";
 
@@ -9,56 +12,51 @@ import Youtube from "../assets/social/youtube.png";
 import Whatsapp from "../assets/social/whatsapp.png";
 
 export default function PreviewLink() {
+  const { id } = useParams();
+
+  const { data, loading, error, refetch } = useQuery("getLink", async () => {
+    const response = await API_BASE.get(`/view/${id}`);
+    return response;
+  });
+
+  const { data: getDataLink } = useQuery("getLinkData", async () => {
+    const response = await API_BASE.get(`/detail/${id}`);
+    return response;
+  });
+
+  console.log(getDataLink);
+  const link = getDataLink?.data?.data?.link;
+  console.log(link?.image);
+
   return (
-    <Container className="text-center w-50 pt-5">
+    <Container className="text-center pt-5 container-preview">
       <img
-        src="https://images.unsplash.com/photo-1617387248297-c0c717db0e1a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
+        src={`http://localhost:5000/uploads/${link?.image}`}
         alt=""
         className="rounded-circle image-preview"
       />
-      <h3 className="mt-2">Title Name</h3>
-      <p className="text-muted">lorem ipsum</p>
-      <div className="mt-2">
-        <div className="mb-4 list-preview bg-dark d-flex align-items-center py-1 px-3">
-          <img
-            src={Facebook}
-            alt=""
-            className="rounded-circle img-social-preview"
-          />
-          <p className="text-center w-100 text-white my-auto">Facebook</p>
-        </div>
-        <div className="mb-4 list-preview bg-dark d-flex align-items-center py-1 px-3">
-          <img
-            src={Instagram}
-            alt=""
-            className="rounded-circle img-social-preview"
-          />
-          <p className="text-center w-100 text-white my-auto">Facebook</p>
-        </div>
-        <div className="mb-4 list-preview bg-dark d-flex align-items-center py-1 px-3">
-          <img
-            src={Twitter}
-            alt=""
-            className="rounded-circle img-social-preview"
-          />
-          <p className="text-center w-100 text-white my-auto">Facebook</p>
-        </div>
-        <div className="mb-4 list-preview bg-dark d-flex align-items-center py-1 px-3">
-          <img
-            src={Youtube}
-            alt=""
-            className="rounded-circle img-social-preview"
-          />
-          <p className="text-center w-100 text-white my-auto">Facebook</p>
-        </div>
-        <div className="mb-4 list-preview bg-dark d-flex align-items-center py-1 px-3">
-          <img
-            src={Whatsapp}
-            alt=""
-            className="rounded-circle img-social-preview"
-          />
-          <p className="text-center w-100 text-white my-auto">Facebook</p>
-        </div>
+      <h3 className="mt-2 title-preview">{link?.title}</h3>
+      <p className="text-muted subtitle-preview">{link?.description}</p>
+      <div className="mt-2 list-preview-container">
+        {link?.links.map((item) => (
+          <div
+            className="mb-2 mb-md-4 bg-dark d-flex align-items-center py-1 list-preview "
+            onClick={() => {
+              window.location = item.url;
+            }}
+          >
+            {/* <div className="img-social-preview">
+              <img
+                src={Facebook}
+                alt="social media"
+                className="rounded-circle img-fluid vh-50"
+              />
+            </div> */}
+            <p className="text-center w-100 text-white my-auto py-2">
+              {item.title}
+            </p>
+          </div>
+        ))}
       </div>
     </Container>
   );

@@ -62,7 +62,7 @@ button {
 }
 .list ul {
   list-style: none;
-  padding: 0 4em;
+  padding: 0 2em;
 }
 
 .list ul li {
@@ -84,11 +84,13 @@ button {
 
 .list-menu {
   padding: 1em 0;
+  display: flex;
 }
 
 .logout {
   font-size: 20px;
-  padding: 0 4em;
+  padding: 0 2em;
+  cursor: pointer;
 }
 
 .icon-edit-link:hover {
@@ -114,8 +116,8 @@ button {
 }
 
 .img-social-preview {
-  min-width: 3.125em;
   width: 3.125em;
+  min-width: 3.125em;
 }
 
 .iframe-container {
@@ -140,4 +142,47 @@ iframe {
 
 .title-list-link {
   font-size: 14px;
+}
+
+.input-line:focus {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+@media (min-width: 1000px) {
+  .container-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .list-preview-container {
+    width: 50%;
+  }
+
+  .list-preview {
+    padding: 0 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-preview-container {
+    width: 100%;
+  }
+
+  .list-preview-container img {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  .list-preview {
+    padding: 0;
+  }
+
+  .title-preview {
+    font-size: 1em;
+  }
+
+  .subtitle-preview {
+    font-size: 0.7em;
+  }
 }

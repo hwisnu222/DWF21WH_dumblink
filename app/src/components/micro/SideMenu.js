@@ -1,6 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
+
+import { UserContext } from "../../context/userContext";
 
 import Logo from "../../assets/logo.svg";
 import Template from "../../assets/icon/template.svg";
@@ -9,6 +11,15 @@ import MyLink from "../../assets/icon/link.svg";
 import Logout from "../../assets/icon/logout.svg";
 
 export default function SideMenu() {
+  const router = useHistory();
+  const [user, dispatchUser] = useContext(UserContext);
+
+  const logoutUser = () => {
+    dispatchUser({ type: "LOGOUT" });
+    localStorage.removeItem("token");
+    router.push("/");
+  };
+
   return (
     <div className="list d-flex flex-column align-items-between justify-content-between">
       <div>
@@ -36,11 +47,9 @@ export default function SideMenu() {
           </Link>
         </ul>
       </div>
-      <Link to="/" className="text-decoration-none">
-        <span className="logout">
-          <img src={Logout} alt="menu" className="mr-2" /> Logout
-        </span>
-      </Link>
+      <span className="logout pe-auto" onClick={logoutUser}>
+        <img src={Logout} alt="menu" className="mr-2" /> Logout
+      </span>
     </div>
   );
 }

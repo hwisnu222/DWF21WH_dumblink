@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 
 import SideBar from "../components/micro/SideMenu";
-import Link from "../components/macro/Link";
+import LinkUser from "../components/macro/LinkUser";
 
 export default function MyLink() {
   return (
@@ -13,7 +13,7 @@ export default function MyLink() {
           <SideBar />
         </Col>
         <Col md={9}>
-          <Link />
+          <LinkUser />
         </Col>
       </Row>
     </div>

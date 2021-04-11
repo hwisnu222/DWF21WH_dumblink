@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Navbar, Row, Col } from "react-bootstrap";
 
@@ -15,7 +16,9 @@ export default function TemplateUser() {
       <div className="pt-4 w-100">
         <Row className="mr-0">
           <Col md={3}>
-            <img src={Template1} alt="template" />
+            <Link to="/add">
+              <img src={Template1} alt="template" />
+            </Link>
           </Col>
           <Col md={3}>
             <img src={Template2} alt="template" />
