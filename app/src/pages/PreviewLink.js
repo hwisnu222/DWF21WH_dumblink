@@ -8,6 +8,7 @@ import TemplateB from "../components/micro/templates/TemplateB";
 import PageFailed from "../components/micro/PageFailed";
 
 export default function PreviewLink() {
+  console.log(window.location);
   const { id } = useParams();
 
   const { data, loading, error, refetch } = useQuery("getLink", async () => {

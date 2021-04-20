@@ -186,3 +186,9 @@ iframe {
     font-size: 0.7em;
   }
 }
+
+.social-media {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+}

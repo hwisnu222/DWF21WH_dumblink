@@ -89,7 +89,9 @@ export default function Header() {
     const registerResponse = await API_BASE.post("/register", body, config);
     // console.log(registerResponse.data.data.user);
 
-    const status = registerResponse.data.data.status;
+    const status = registerResponse?.data?.status;
+
+    console.log(status);
 
     if (status == "success") {
       const token = registerResponse.data.data.user.token;
